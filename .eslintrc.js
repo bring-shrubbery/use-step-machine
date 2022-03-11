@@ -35,5 +35,6 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'comma-dangle': 'off',
   },
 };
