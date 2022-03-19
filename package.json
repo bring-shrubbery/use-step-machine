@@ -12,7 +12,7 @@
     "node": ">=14"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --minify --external react",
+    "build": "yarn tsup src/index.ts --format esm,cjs --dts --minify --external react",
     "test": "jest",
     "clean": "rimraf dist",
     "lint": "eslint ./src/**/*",
