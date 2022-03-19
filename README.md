@@ -1,5 +1,7 @@
 # useStepMachine
 
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/use-step-machine?color=000000&label=min%2Bgzip)
+
 State machine hook for all things that can make steps.
 
 ## Project Overview
