@@ -18,7 +18,6 @@
     "lint": "eslint ./src/**/*",
     "lint:fix": "yarn lint -- --fix",
     "format": "prettier --write ./src --loglevel error",
-    "prepare": "yarn build",
     "posttest": "yarn lint"
   },
   "keywords": [
