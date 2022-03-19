@@ -4,9 +4,9 @@ State machine hook for all things that can make steps.
 
 ## Project Overview
 
-- Hook based - feel at home, fellow React developer!
-- Familiar API to regular state machines with an addition of steps.
-- Small: `~500B` minified.
+- **Hook based** - feel at home, fellow React developer!
+- **Familiar** API to regular state machines with an addition of steps.
+- **Small** - `~500B` minified.
 
 ## Usage
 
