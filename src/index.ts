@@ -1,35 +1,63 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 const getLowerLimitHigherThanTotalError = () =>
   new Error(
     'useStepMachine: Lower limit cannot be higher than total step amount'
   );
 
-type StateAction<S extends string> = <G extends S | string>() => G | undefined;
+// TODO: Type steps with a type instead of `number`
+type Conditions<StepType extends number, States> = (
+  step: StepType,
+  state?: keyof States
+) => keyof States;
 
-type StepType<S extends string, A extends string> = Record<A, StateAction<S>>;
-
-export interface StepMachineOptions<S extends string, A extends string> {
+export interface StepMachineOptions<
+  States,
+  // @ts-ignore
+  Actions,
+  ActionCallback = () => keyof States,
+  AllActions = {
+    // TODO: Figure out how to infer Type from action keys
+    [A in string]: ActionCallback;
+  },
+  InferredActions = AllActions,
+  InferredStates = {
+    [S in keyof States]: InferredActions;
+  }
+> {
   initial?: number;
   total?: number;
   lowerLimit?: number;
-  states?: Record<S, StepType<S, A>>;
-  initialState?: S;
+  initialState?: keyof States;
+  states?: InferredStates;
+  conditions?: Conditions<number, States>;
 }
 
-export const useStepMachine = <S extends string, A extends string>({
+export const useStepMachine = <States, Actions>({
   initial = 0,
   total = Number.POSITIVE_INFINITY,
   // states,
   // initialState,
   lowerLimit = 0,
-}: StepMachineOptions<S, A>) => {
+  conditions,
+}: StepMachineOptions<States, Actions>) => {
   if (lowerLimit > total) throw getLowerLimitHigherThanTotalError();
-  const [step, setStep] = useState(initial);
-  const [state, setState] = useState<S>();
 
+  // State
+  const [step, setStep] = useState(initial);
+  // @ts-ignore
+  const [state, setState] = useState<keyof States>();
+
+  // Next/prev/first/last actions
   const next = () => step < total && setStep(step + 1);
   const prev = () => step > lowerLimit && setStep(step - 1);
+
+  // Process conditions
+  useMemo(() => {
+    if (!conditions) return;
+    const newState = conditions(step, state);
+    setState(newState);
+  }, [step, state, conditions]);
 
   return {
     step,
@@ -39,14 +67,14 @@ export const useStepMachine = <S extends string, A extends string>({
   };
 };
 
-const { step, next, prev, state } = useStepMachine({
-  states: {
-    hello: {
-      sayBye: () => 'bye',
-      sayHelloAgain: () => 'hello',
-    },
-    anotherState: {
-      doNothing: () => 'hello',
-    },
-  },
-});
+// const { step, next, prev, state } = useStepMachine({
+//   states: {
+//     hello: {
+//       sayBye: () => 'bye',
+//       sayHelloAgain: () => 'hello',
+//     },
+//     anotherState: {
+//       doNothing: () => 'hello',
+//     },
+//   },
+// });

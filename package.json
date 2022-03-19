@@ -1,6 +1,6 @@
 {
   "name": "use-step-machine",
-  "version": "1.0.0",
+  "version": "0.1.0-beta.1",
   "description": "State machine hook for all things that can make steps.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -55,6 +55,7 @@
     "react-dom": "^17",
     "react-test-renderer": "^17",
     "rimraf": "^3",
+    "tsup": "^5.12.1",
     "typescript": "^4.6.2"
   },
   "homepage": "https://github.com/bring-shrubbery/easy-npm-package-react",
@@ -70,8 +71,5 @@
     "email": "antoni.silvestrovic@gmail.com",
     "url": "http://antoni.ai/"
   },
-  "license": "MIT",
-  "dependencies": {
-    "tsup": "^5.11.13"
-  }
+  "license": "MIT"
 }
