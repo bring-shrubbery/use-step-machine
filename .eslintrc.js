@@ -4,7 +4,7 @@ module.exports = {
     es2021: true,
     jest: true,
   },
-  extends: ['plugin:react/recommended', 'plugin:import/typescript', 'airbnb'],
+  extends: ['plugin:react/recommended', 'plugin:import/typescript'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
@@ -13,7 +13,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint'],
+  plugins: ['react', '@typescript-eslint', 'import'],
   settings: {
     'import/resolver': {
       node: {
@@ -35,5 +35,6 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'comma-dangle': 'off',
   },
 };
